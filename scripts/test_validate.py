@@ -82,13 +82,12 @@ class TestLoadConfig(unittest.TestCase):
     def setUp(self):
         """Create temporary directory for test files."""
         self.temp_dir = tempfile.mkdtemp()
-        self.original_cwd = os.getcwd()
-        os.chdir(self.temp_dir)
+        self.addCleanup(shutil.rmtree, self.temp_dir)
 
-    def tearDown(self):
-        """Clean up temporary files."""
-        os.chdir(self.original_cwd)
-        shutil.rmtree(self.temp_dir)
+        self.original_cwd = os.getcwd()
+        self.addCleanup(os.chdir, self.original_cwd)
+
+        os.chdir(self.temp_dir)
 
     def write_config(self, content):
         """Helper to write config.yml file."""
@@ -269,14 +268,13 @@ class TestMain(unittest.TestCase):
     def setUp(self):
         """Create temporary directory with manifests subdirectory."""
         self.temp_dir = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.temp_dir)
+
         self.manifests_dir = os.path.join(self.temp_dir, 'manifests')
         os.makedirs(self.manifests_dir)
-        self.original_cwd = os.getcwd()
 
-    def tearDown(self):
-        """Clean up temporary files and restore working directory."""
-        os.chdir(self.original_cwd)
-        shutil.rmtree(self.temp_dir)
+        self.original_cwd = os.getcwd()
+        self.addCleanup(os.chdir, self.original_cwd)
 
     def write_manifest(self, filename, content):
         """Helper to write a manifest file in manifests/ directory."""

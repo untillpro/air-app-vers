@@ -21,10 +21,7 @@ class TestValidateManifest(unittest.TestCase):
     def setUp(self):
         """Create temporary directory for test files."""
         self.temp_dir = tempfile.mkdtemp()
-
-    def tearDown(self):
-        """Clean up temporary files."""
-        shutil.rmtree(self.temp_dir)
+        self.addCleanup(shutil.rmtree, self.temp_dir)
 
     def write_manifest(self, filename, content):
         """Helper to write a manifest file."""
