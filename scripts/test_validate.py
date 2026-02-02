@@ -7,6 +7,7 @@ import unittest
 import tempfile
 import os
 import sys
+import shutil
 from pathlib import Path
 from datetime import datetime
 from io import StringIO
@@ -87,7 +88,6 @@ class TestLoadConfig(unittest.TestCase):
     def tearDown(self):
         """Clean up temporary files."""
         os.chdir(self.original_cwd)
-        import shutil
         shutil.rmtree(self.temp_dir)
 
     def write_config(self, content):
@@ -276,7 +276,6 @@ class TestMain(unittest.TestCase):
     def tearDown(self):
         """Clean up temporary files and restore working directory."""
         os.chdir(self.original_cwd)
-        import shutil
         shutil.rmtree(self.temp_dir)
 
     def write_manifest(self, filename, content):
@@ -412,7 +411,6 @@ class TestMain(unittest.TestCase):
         self.write_config(config)
 
         # Remove the manifests directory
-        import shutil
         shutil.rmtree(self.manifests_dir)
 
         exit_code, output = self.run_main()

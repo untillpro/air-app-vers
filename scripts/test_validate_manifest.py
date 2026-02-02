@@ -7,6 +7,7 @@ import unittest
 import tempfile
 import os
 import sys
+import shutil
 
 # Add scripts directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +24,6 @@ class TestValidateManifest(unittest.TestCase):
 
     def tearDown(self):
         """Clean up temporary files."""
-        import shutil
         shutil.rmtree(self.temp_dir)
 
     def write_manifest(self, filename, content):
