@@ -92,6 +92,110 @@ class TestValidateManifest(unittest.TestCase):
         errors = validate_manifest(filepath)
         self.assertTrue(any("Invalid semantic version format" in err for err in errors))
 
+    def test_invalid_semver_with_letters(self):
+        """Test manifest with letters in version (should not crash)."""
+        content = """versions:
+  "a.b.c":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        filepath = self.write_manifest("letters_version.yml", content)
+        errors = validate_manifest(filepath)
+        self.assertTrue(any("Invalid semantic version format: a.b.c" in err for err in errors))
+
+    def test_invalid_semver_followed_by_valid(self):
+        """Test invalid version followed by valid version (should not crash on comparison)."""
+        content = """versions:
+  "a.b.c":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+  "1.0.0":
+    released_at: 2026-01-15T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        filepath = self.write_manifest("invalid_then_valid.yml", content)
+        errors = validate_manifest(filepath)
+        # Should report invalid format but not crash
+        self.assertTrue(any("Invalid semantic version format: a.b.c" in err for err in errors))
+        # Should not report ordering error since invalid version is skipped
+        self.assertFalse(any("not in ascending order" in err for err in errors))
+
+    def test_multiple_invalid_semvers(self):
+        """Test multiple invalid versions (should not crash)."""
+        content = """versions:
+  "x.y.z":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+  "1.2":
+    released_at: 2026-01-15T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+  "a.b.c":
+    released_at: 2026-01-20T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        filepath = self.write_manifest("multiple_invalid.yml", content)
+        errors = validate_manifest(filepath)
+        # Should report all invalid formats
+        self.assertTrue(any("Invalid semantic version format: x.y.z" in err for err in errors))
+        self.assertTrue(any("Invalid semantic version format: 1.2" in err for err in errors))
+        self.assertTrue(any("Invalid semantic version format: a.b.c" in err for err in errors))
+
+    def test_valid_then_invalid_semver(self):
+        """Test valid version followed by invalid version (should not crash)."""
+        content = """versions:
+  "1.0.0":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+  "invalid":
+    released_at: 2026-01-15T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        filepath = self.write_manifest("valid_then_invalid.yml", content)
+        errors = validate_manifest(filepath)
+        self.assertTrue(any("Invalid semantic version format: invalid" in err for err in errors))
+
+    def test_mixed_valid_invalid_versions_ordering(self):
+        """Test that ordering check only applies to valid versions."""
+        content = """versions:
+  "1.0.0":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+  "invalid":
+    released_at: 2026-01-15T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+  "2.0.0":
+    released_at: 2026-01-20T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        filepath = self.write_manifest("mixed_versions.yml", content)
+        errors = validate_manifest(filepath)
+        # Should report invalid format
+        self.assertTrue(any("Invalid semantic version format: invalid" in err for err in errors))
+        # Should not report ordering error (1.0.0 < 2.0.0 is correct)
+        self.assertFalse(any("not in ascending order" in err for err in errors))
+
     def test_versions_not_ascending(self):
         """Test manifest with versions not in ascending order."""
         content = """versions:

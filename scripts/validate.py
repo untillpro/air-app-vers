@@ -149,14 +149,19 @@ def validate_manifest(filepath):
 
     # Check versions are in ascending order
     version_list = list(versions.keys())
-    for i, version in enumerate(version_list):
+    valid_versions = []  # Track versions with valid format for comparison
+
+    for version in version_list:
         # Validate semver format
         if not validate_semver(version):
             errors.append(f"Invalid semantic version format: {version}")
+            continue  # Skip comparison for invalid versions
 
-        # Check ascending order
-        if i > 0:
-            prev_version = version_list[i-1]
+        valid_versions.append(version)
+
+        # Check ascending order (only compare valid versions)
+        if len(valid_versions) > 1:
+            prev_version = valid_versions[-2]
             # Use semantic version comparison (numeric tuples) instead of string comparison
             if parse_semver(version) <= parse_semver(prev_version):
                 errors.append(f"Versions not in ascending order: {prev_version} -> {version}")
