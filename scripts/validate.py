@@ -168,6 +168,11 @@ def validate_manifest(filepath):
 
     # Validate each version entry
     for version, details in versions.items():
+        # Check if details is a dict
+        if not isinstance(details, dict):
+            errors.append(f"Version {version}: version details must be an object, not {type(details).__name__}")
+            continue
+
         if 'released_at' not in details:
             errors.append(f"Version {version}: missing 'released_at'")
         elif not validate_iso8601(details['released_at']):

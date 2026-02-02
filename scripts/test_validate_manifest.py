@@ -449,6 +449,20 @@ class TestValidateManifest(unittest.TestCase):
         errors = validate_manifest(filepath)
         self.assertTrue(len(errors) > 0)
 
+    def test_version_details_is_not_dict(self):
+        """Test manifest with multiple versions having invalid details types."""
+        content = """versions:
+  "1.0.0": "string"
+  "2.0.0": 456
+  "3.0.0": null
+"""
+        filepath = self.write_manifest("multiple_invalid_details.yml", content)
+        errors = validate_manifest(filepath)
+        # Should report all invalid details
+        self.assertTrue(any("1.0.0" in err and "not str" in err for err in errors))
+        self.assertTrue(any("2.0.0" in err and "not int" in err for err in errors))
+        self.assertTrue(any("3.0.0" in err and "not NoneType" in err for err in errors))
+
     def test_duplicate_versions(self):
         """Test manifest with same version appearing twice (YAML overwrites)."""
         # Note: YAML will overwrite duplicate keys, so only the last one remains
