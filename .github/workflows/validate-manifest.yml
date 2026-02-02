@@ -21,13 +21,14 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: |
-          pip install pyyaml
+        run: pip install pyyaml
+
+      - name: Run tests
+        run: python -m unittest discover scripts -v
 
       - name: Validate manifests
         id: validate
-        run: |
-          python scripts/validate.py
+        run: python scripts/validate.py
         continue-on-error: true
 
       - name: Comment PR
@@ -36,13 +37,14 @@ jobs:
           script: |
             const fs = require('fs');
             let comment = '';
-            
+
             if (${{ steps.validate.outcome == 'success' }}) {
-              comment = 'Validation passed\n\nAll manifest files are valid.';
+              comment = '✅ **Validation passed**\n\nAll manifest files are valid.';
             } else {
-              comment = 'Validation failed\n\nPlease check the workflow logs for details.';
+              const jobUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+              comment = `❌ **Validation failed**\n\nPlease check the workflow logs for details:\n${jobUrl}`;
             }
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -69,4 +71,3 @@ jobs:
               pull_number: context.issue.number,
               merge_method: 'squash'
             });
-

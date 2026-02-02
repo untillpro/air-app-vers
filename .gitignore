@@ -8,6 +8,7 @@ env/
 venv/
 ENV/
 .venv
+.coverage
 
 # IDE
 .vscode/
@@ -19,4 +20,3 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
-
