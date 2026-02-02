@@ -5,8 +5,13 @@
 ## Run tests
 
 ```bash
-python -m unittest discover scripts -v
+# Install dependencies
 pip install coverage
+
+# Run tests
+python -m unittest discover scripts -v
+
+# Or, run tests with coverage and generate a report
 coverage run -m unittest discover scripts
 coverage html
 ```

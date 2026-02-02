@@ -5,7 +5,7 @@ uspecs.baseline: 1a3077aba114cad5ff9e273de2932ae2f7e9a3a2
 uspecs.archived_at: 2026-02-02T11:59:49Z
 ---
 
-﻿# Change request: Use correct semantic version comparison
+# Change request: Use correct semantic version comparison
 
 ## Why
 
