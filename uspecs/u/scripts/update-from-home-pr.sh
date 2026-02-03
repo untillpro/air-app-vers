@@ -128,3 +128,9 @@ else
     gh pr create --repo "$PR_REPO" --base main --head "$BRANCH_NAME" --title "Update uspecs from USPECS_HOME (${TIMESTAMP_POSTFIX})" --body "Automated update uspecs from USPECS_HOME (${TIMESTAMP_POSTFIX})"
 fi
 echo "Pull request created successfully!"
+
+# Clean up local branch (remote branch remains for PR)
+echo "Cleaning up local branch..."
+git checkout main
+git branch -d "$BRANCH_NAME"
+echo "Done!"
