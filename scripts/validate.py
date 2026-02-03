@@ -157,6 +157,7 @@ def validate_manifest(filepath):
             errors.append(f"Invalid semantic version format: {version}")
             continue  # Skip comparison for invalid versions
 
+
         valid_versions.append(version)
 
         # Check ascending order (only compare valid versions)
