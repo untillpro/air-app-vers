@@ -1,0 +1,10 @@
+apps:
+  - name: pos
+    environments:
+      - live
+      - staging
+  - name: backoffice
+    environments:
+      - live
+      - staging
+
