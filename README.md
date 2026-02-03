@@ -6,7 +6,7 @@
 
 ```bash
 # Install dependencies
-pip install coverage
+pip install coverage pyyaml
 
 # Run tests
 python -m unittest discover scripts -v
