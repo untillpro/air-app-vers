@@ -1,4 +1,4 @@
-# Agents instructions
+# Agent instructions
 
 <!-- uspecs:triggering_instructions:begin -->
 
