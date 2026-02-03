@@ -11,9 +11,7 @@ import shutil
 from textwrap import dedent
 
 # Add scripts directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from validate import validate_manifest
+from scripts.validate import validate_manifest
 
 
 class TestValidateManifest(unittest.TestCase):

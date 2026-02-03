@@ -13,10 +13,7 @@ from datetime import datetime
 from io import StringIO
 from unittest.mock import patch
 
-# Add scripts directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from validate import (
+from scripts.validate import (
     validate_name,
     validate_semver,
     parse_semver,
