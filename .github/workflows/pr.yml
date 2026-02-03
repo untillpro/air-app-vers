@@ -4,11 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'manifests/*.yml'
-      - 'config.yml'
-      - 'scripts/**'
-      - 'github/workflows/**'
 
 jobs:
   check-author:
@@ -17,6 +12,7 @@ jobs:
       - name: Check if PR author is in DevOps_releasep team
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.ORG_METADATA_READ_TOKEN }}
           script: |
             const author = context.payload.pull_request.user.login;
             const { data } = await github.rest.teams.getMembershipForUserInOrg({
