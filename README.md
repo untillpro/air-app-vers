@@ -15,3 +15,10 @@ python -m unittest discover scripts -v
 coverage run -m unittest discover scripts
 coverage html
 ```
+
+## Try example
+
+```bash
+cd scripts/test_example
+./run.sh
+```

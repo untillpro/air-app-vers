@@ -25,9 +25,6 @@ from validate import (
     load_config,
     validate_config,
     main,
-    SEVERITY_VALUES,
-    MATCHER_TYPES,
-    VALID_COUNTRIES
 )
 
 
@@ -262,8 +259,8 @@ class TestValidateLocationHash(unittest.TestCase):
         self.assertFalse(validate_location_hash(""))
 
 
-class TestMain(unittest.TestCase):
-    """Integration tests for main() function."""
+class TestValidation(unittest.TestCase):
+    """Integration tests for validate.py."""
 
     def setUp(self):
         """Create temporary directory with manifests subdirectory."""
@@ -503,7 +500,5 @@ class TestMain(unittest.TestCase):
         self.assertEqual(exit_code, 1)
         self.assertIn("invalid environment 'LIVE'", output)
 
-
 if __name__ == '__main__':
     unittest.main()
-
