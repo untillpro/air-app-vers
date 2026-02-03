@@ -8,6 +8,7 @@ on:
       - 'manifests/*.yml'
       - 'config.yml'
 
+      
 jobs:
   check-author:
     runs-on: ubuntu-latest
