@@ -6,22 +6,23 @@ Unit tests for validation script.
 import unittest
 import tempfile
 import os
-import sys
 import shutil
-from pathlib import Path
 from datetime import datetime
 from io import StringIO
 from unittest.mock import patch
 
-from scripts.validate import (
+from scripts.validate import main
+from scripts.validate_config import (
     validate_name,
+    load_config,
+    validate_config,
+    REQUIRED_LOCALE,
+)
+from scripts.validate_manifest import (
     validate_semver,
     parse_semver,
     validate_iso8601,
     validate_location_hash,
-    load_config,
-    validate_config,
-    main,
 )
 
 
@@ -128,71 +129,109 @@ class TestValidateConfig(unittest.TestCase):
             'apps': [
                 {'name': 'pos', 'environments': ['live', 'staging']},
                 {'name': 'backoffice', 'environments': ['live']}
-            ]
+            ],
+            'locales': ['en-en', 'nl-NL', 'de-DE']
         }
-        expected_files, errors = validate_config(config)
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertEqual(errors, [])
         self.assertIn('pos--live.yml', expected_files)
         self.assertIn('pos--staging.yml', expected_files)
         self.assertIn('backoffice--live.yml', expected_files)
         self.assertEqual(len(expected_files), 3)
+        self.assertIn('pos', app_names)
+        self.assertIn('backoffice', app_names)
+        self.assertIn('en-en', locales)
+        self.assertIn('nl-NL', locales)
 
     def test_missing_apps_key(self):
         """Test error when apps key is missing."""
         config = {}
-        expected_files, errors = validate_config(config)
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertEqual(expected_files, [])
         self.assertIn("config.yml: missing 'apps' key", errors)
 
     def test_empty_apps_list(self):
         """Test error when apps list is empty."""
         config = {'apps': []}
-        expected_files, errors = validate_config(config)
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertEqual(expected_files, [])
         self.assertIn("config.yml: 'apps' must be a non-empty list", errors)
 
     def test_missing_app_name(self):
         """Test error when app is missing name."""
-        config = {'apps': [{'environments': ['live']}]}
-        expected_files, errors = validate_config(config)
+        config = {'apps': [{'environments': ['live']}], 'locales': ['en-en']}
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertTrue(any("missing 'name'" in e for e in errors))
 
     def test_missing_environments(self):
         """Test error when app is missing environments."""
-        config = {'apps': [{'name': 'pos'}]}
-        expected_files, errors = validate_config(config)
+        config = {'apps': [{'name': 'pos'}], 'locales': ['en-en']}
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertTrue(any("missing 'environments'" in e for e in errors))
 
     def test_empty_environments_list(self):
         """Test error when environments list is empty."""
-        config = {'apps': [{'name': 'pos', 'environments': []}]}
-        expected_files, errors = validate_config(config)
+        config = {'apps': [{'name': 'pos', 'environments': []}], 'locales': ['en-en']}
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertTrue(any("must be a non-empty list" in e for e in errors))
 
     def test_none_config(self):
         """Test error when config is None."""
-        expected_files, errors = validate_config(None)
+        expected_files, app_names, locales, errors = validate_config(None)
         self.assertEqual(expected_files, [])
         self.assertIn("config.yml: missing 'apps' key", errors)
 
     def test_apps_not_a_list(self):
         """Test error when apps is not a list."""
         config = {'apps': "not a list"}
-        expected_files, errors = validate_config(config)
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertEqual(expected_files, [])
         self.assertIn("config.yml: 'apps' must be a non-empty list", errors)
 
     def test_app_not_a_dict(self):
         """Test error when app entry is not a dict."""
-        config = {'apps': ["string", 123]}
-        expected_files, errors = validate_config(config)
+        config = {'apps': ["string", 123], 'locales': ['en-en']}
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertTrue(any("must be an object" in e for e in errors))
 
     def test_environments_not_a_list(self):
         """Test error when environments is not a list."""
-        config = {'apps': [{'name': 'pos', 'environments': "not a list"}]}
-        expected_files, errors = validate_config(config)
+        config = {'apps': [{'name': 'pos', 'environments': "not a list"}], 'locales': ['en-en']}
+        expected_files, app_names, locales, errors = validate_config(config)
         self.assertTrue(any("must be a non-empty list" in e for e in errors))
+
+    def test_missing_locales_key(self):
+        """Test error when locales key is missing."""
+        config = {'apps': [{'name': 'pos', 'environments': ['live']}]}
+        expected_files, app_names, locales, errors = validate_config(config)
+        self.assertIn("config.yml: missing 'locales' key", errors)
+
+    def test_missing_required_locale(self):
+        """Test error when required locale (en-en) is missing."""
+        config = {
+            'apps': [{'name': 'pos', 'environments': ['live']}],
+            'locales': ['nl-NL', 'de-DE']
+        }
+        expected_files, app_names, locales, errors = validate_config(config)
+        self.assertTrue(any(f"missing required locale '{REQUIRED_LOCALE}'" in e for e in errors))
+
+    def test_locales_not_a_list(self):
+        """Test error when locales is not a list."""
+        config = {
+            'apps': [{'name': 'pos', 'environments': ['live']}],
+            'locales': 'en-en'
+        }
+        expected_files, app_names, locales, errors = validate_config(config)
+        self.assertTrue(any("'locales' must be a non-empty list" in e for e in errors))
+
+    def test_invalid_locale_entry(self):
+        """Test error when locale entry is invalid (not a non-empty string)."""
+        config = {
+            'apps': [{'name': 'pos', 'environments': ['live']}],
+            'locales': ['en-en', '', 123]
+        }
+        expected_files, app_names, locales, errors = validate_config(config)
+        self.assertTrue(any("invalid locale" in e for e in errors))
 
 
 class TestParseSemver(unittest.TestCase):
@@ -260,12 +299,15 @@ class TestValidation(unittest.TestCase):
     """Integration tests for validate.py."""
 
     def setUp(self):
-        """Create temporary directory with manifests subdirectory."""
+        """Create temporary directory with manifests and notes subdirectories."""
         self.temp_dir = tempfile.mkdtemp()
         self.addCleanup(shutil.rmtree, self.temp_dir)
 
         self.manifests_dir = os.path.join(self.temp_dir, 'manifests')
         os.makedirs(self.manifests_dir)
+
+        self.notes_dir = os.path.join(self.temp_dir, 'notes')
+        os.makedirs(self.notes_dir)
 
         self.original_cwd = os.getcwd()
         self.addCleanup(os.chdir, self.original_cwd)
@@ -273,6 +315,13 @@ class TestValidation(unittest.TestCase):
     def write_manifest(self, filename, content):
         """Helper to write a manifest file in manifests/ directory."""
         filepath = os.path.join(self.manifests_dir, filename)
+        with open(filepath, 'w') as f:
+            f.write(content)
+        return filepath
+
+    def write_notes(self, filename, content):
+        """Helper to write a notes file in notes/ directory."""
+        filepath = os.path.join(self.notes_dir, filename)
         with open(filepath, 'w') as f:
             f.write(content)
         return filepath
@@ -295,8 +344,8 @@ class TestValidation(unittest.TestCase):
 
         return cm.exception.code, captured_output.getvalue()
 
-    def test_main_with_valid_manifests(self):
-        """Test main() with valid manifest files."""
+    def test_main_with_valid_manifests_and_notes(self):
+        """Test main() with valid manifest and notes files."""
         config = """apps:
   - name: appone
     environments:
@@ -304,22 +353,32 @@ class TestValidation(unittest.TestCase):
   - name: apptwo
     environments:
       - envtwo
+locales:
+  - en-en
+  - nl-NL
 """
         self.write_config(config)
 
-        content = """versions:
+        manifest_content = """versions:
   "1.0.0":
     released_at: 2026-01-10T09:00:00Z
     matchers:
       - matcher_type: default
         severity: green
 """
-        self.write_manifest("appone--envone.yml", content)
-        self.write_manifest("apptwo--envtwo.yml", content)
+        self.write_manifest("appone--envone.yml", manifest_content)
+        self.write_manifest("apptwo--envtwo.yml", manifest_content)
+
+        notes_content = """locales:
+  - name: en-en
+    notes: Test release notes
+"""
+        self.write_notes("appone--1.0.0.yml", notes_content)
+        self.write_notes("apptwo--1.0.0.yml", notes_content)
 
         exit_code, output = self.run_main()
         self.assertEqual(exit_code, 0)
-        self.assertIn("All manifest files are valid", output)
+        self.assertIn("All manifest and notes files are valid", output)
 
     def test_main_with_invalid_manifest(self):
         """Test main() with one invalid manifest."""
@@ -330,6 +389,8 @@ class TestValidation(unittest.TestCase):
   - name: invalid
     environments:
       - env
+locales:
+  - en-en
 """
         self.write_config(config)
 
@@ -350,6 +411,14 @@ class TestValidation(unittest.TestCase):
         self.write_manifest("valid--env.yml", valid_content)
         self.write_manifest("invalid--env.yml", invalid_content)
 
+        # Write notes files for cross-validation
+        notes_content = """locales:
+  - name: en-en
+    notes: Test release notes
+"""
+        self.write_notes("valid--1.0.0.yml", notes_content)
+        self.write_notes("invalid--1.0.0.yml", notes_content)
+
         exit_code, output = self.run_main()
         self.assertEqual(exit_code, 1)
         self.assertIn("Validation failed", output)
@@ -365,6 +434,8 @@ class TestValidation(unittest.TestCase):
   - name: errortwo
     environments:
       - env
+locales:
+  - en-en
 """
         self.write_config(config)
 
@@ -399,6 +470,8 @@ class TestValidation(unittest.TestCase):
   - name: app
     environments:
       - env
+locales:
+  - en-en
 """
         self.write_config(config)
 
@@ -426,6 +499,8 @@ class TestValidation(unittest.TestCase):
   - name: pos
     environments:
       - live
+locales:
+  - en-en
 """
         self.write_config(config)
 
@@ -445,6 +520,176 @@ class TestValidation(unittest.TestCase):
         self.assertIn("unknown--app.yml", output)
         self.assertIn("not defined in config.yml", output)
 
+    def test_main_orphan_manifest_file_unknown_environment(self):
+        """Test main() detects manifest file with environment not defined in config."""
+        config = """apps:
+  - name: pos
+    environments:
+      - live
+locales:
+  - en-en
+"""
+        self.write_config(config)
+
+        content = """versions:
+  "1.0.0":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        self.write_manifest("pos--live.yml", content)
+        self.write_manifest("pos--staging.yml", content)  # unknown environment
+
+        notes_content = """locales:
+  - name: en-en
+    notes: Test release notes
+"""
+        self.write_notes("pos--1.0.0.yml", notes_content)
+
+        exit_code, output = self.run_main()
+        self.assertEqual(exit_code, 1)
+        self.assertIn("Validation failed", output)
+        self.assertIn("pos--staging.yml", output)
+        self.assertIn("not defined in config.yml", output)
+
+    def test_main_orphan_notes_file(self):
+        """Test main() detects notes file with app not defined in config."""
+        config = """apps:
+  - name: pos
+    environments:
+      - live
+locales:
+  - en-en
+"""
+        self.write_config(config)
+
+        manifest_content = """versions:
+  "1.0.0":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        self.write_manifest("pos--live.yml", manifest_content)
+
+        notes_content = """locales:
+  - name: en-en
+    notes: Test release notes
+"""
+        self.write_notes("pos--1.0.0.yml", notes_content)
+        self.write_notes("unknown--1.0.0.yml", notes_content)  # orphan notes file
+
+        exit_code, output = self.run_main()
+        self.assertEqual(exit_code, 1)
+        self.assertIn("Validation failed", output)
+        self.assertIn("unknown--1.0.0.yml", output)
+        self.assertIn("App 'unknown' not defined in config.yml", output)
+
+    def test_main_invalid_notes_filename_format(self):
+        """Test main() detects notes file with invalid filename format."""
+        config = """apps:
+  - name: pos
+    environments:
+      - live
+locales:
+  - en-en
+"""
+        self.write_config(config)
+
+        manifest_content = """versions:
+  "1.0.0":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        self.write_manifest("pos--live.yml", manifest_content)
+
+        notes_content = """locales:
+  - name: en-en
+    notes: Test release notes
+"""
+        self.write_notes("pos--1.0.0.yml", notes_content)
+        self.write_notes("invalid-filename.yml", notes_content)  # invalid format
+
+        exit_code, output = self.run_main()
+        self.assertEqual(exit_code, 1)
+        self.assertIn("Validation failed", output)
+        self.assertIn("invalid-filename.yml", output)
+        self.assertIn("Invalid filename format", output)
+
+    def test_main_missing_notes_file_for_version(self):
+        """Test main() detects missing notes file for version in manifest."""
+        config = """apps:
+  - name: pos
+    environments:
+      - live
+locales:
+  - en-en
+"""
+        self.write_config(config)
+
+        manifest_content = """versions:
+  "1.0.0":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+  "2.0.0":
+    released_at: 2026-01-15T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        self.write_manifest("pos--live.yml", manifest_content)
+
+        notes_content = """locales:
+  - name: en-en
+    notes: Test release notes
+"""
+        self.write_notes("pos--1.0.0.yml", notes_content)
+        # pos--2.0.0.yml is missing
+
+        exit_code, output = self.run_main()
+        self.assertEqual(exit_code, 1)
+        self.assertIn("Validation failed", output)
+        self.assertIn("pos--2.0.0.yml", output)
+        self.assertIn("Missing notes file for version 2.0.0", output)
+
+    def test_main_unreferenced_notes_version(self):
+        """Test main() detects notes file version not referenced in any manifest."""
+        config = """apps:
+  - name: pos
+    environments:
+      - live
+locales:
+  - en-en
+"""
+        self.write_config(config)
+
+        manifest_content = """versions:
+  "1.0.0":
+    released_at: 2026-01-10T09:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+"""
+        self.write_manifest("pos--live.yml", manifest_content)
+
+        notes_content = """locales:
+  - name: en-en
+    notes: Test release notes
+"""
+        self.write_notes("pos--1.0.0.yml", notes_content)
+        self.write_notes("pos--9.9.9.yml", notes_content)  # version not in any manifest
+
+        exit_code, output = self.run_main()
+        self.assertEqual(exit_code, 1)
+        self.assertIn("Validation failed", output)
+        self.assertIn("pos--9.9.9.yml", output)
+        self.assertIn("Version 9.9.9 not referenced in any manifest file", output)
+
     def test_main_missing_manifest_file(self):
         """Test main() detects missing manifest file defined in config."""
         config = """apps:
@@ -452,6 +697,8 @@ class TestValidation(unittest.TestCase):
     environments:
       - live
       - staging
+locales:
+  - en-en
 """
         self.write_config(config)
 
@@ -477,6 +724,8 @@ class TestValidation(unittest.TestCase):
   - name: POS
     environments:
       - live
+locales:
+  - en-en
 """
         self.write_config(config)
 
@@ -490,6 +739,8 @@ class TestValidation(unittest.TestCase):
   - name: pos
     environments:
       - LIVE
+locales:
+  - en-en
 """
         self.write_config(config)
 

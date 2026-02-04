@@ -1,4 +1,7 @@
 locales:
-  en-en: Recommended update with important fixes.
-  nl-nl: Aanbevolen update met belangrijke fixes.
-  de-de: Empfohlenes Update mit wichtigen Korrekturen.
+  - name: en-en
+    notes: Recommended update with important fixes.
+  - name: nl-NL
+    notes: Aanbevolen update met belangrijke fixes.
+  - name: de-DE
+    notes: Empfohlenes Update mit wichtigen Korrekturen.
