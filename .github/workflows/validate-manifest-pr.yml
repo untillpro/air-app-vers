@@ -54,7 +54,6 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
             let comment = '';
 
             if (${{ steps.validate.outcome == 'success' }}) {
