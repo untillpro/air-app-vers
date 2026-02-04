@@ -86,22 +86,20 @@ git rebase "$PR_REMOTE/main"
 echo "Pushing updated main to origin..."
 git push origin main
 
-# Create timestamp postfix for branch name and messages
-TIMESTAMP_POSTFIX="$(date +%y%m%d-%H%M%S)"
-BRANCH_NAME="update-uspecs-from-home-${TIMESTAMP_POSTFIX}"
-
-echo "Creating branch: $BRANCH_NAME"
-git checkout -b "$BRANCH_NAME"
-
 # Run update-from-home.sh with current directory's uspecs/u as target
 echo "Running update-from-home.sh..."
 bash "$SCRIPT_DIR/update-from-home.sh" "$PWD/uspecs/u"
 
-# Read version info for commit/PR messages
+# Read version info for branch name, commit, and PR messages
 VERSION_INFO=""
 if [[ -f "$PWD/uspecs/version.txt" ]]; then
     VERSION_INFO=$(cat "$PWD/uspecs/version.txt")
 fi
+
+BRANCH_NAME="update-uspecs-${VERSION_INFO}"
+
+echo "Creating branch: $BRANCH_NAME"
+git checkout -b "$BRANCH_NAME"
 
 # Check if there are any changes to commit
 if [[ -z $(git status --porcelain) ]]; then

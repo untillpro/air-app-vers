@@ -285,7 +285,7 @@ fi
 
 # Save version info to uspecs/version.txt
 VERSION_FILE="$TARGET_ROOT/uspecs/version.txt"
-timestamp=$(date -u +"%Y%m%d%H%M%S")
 commit=$(cd "$USPECS_HOME" && git rev-parse HEAD | cut -c1-12)
-echo "${timestamp}-${commit}" > "$VERSION_FILE"
+commit_timestamp=$(cd "$USPECS_HOME" && git show -s --format=%cd --date=format:%Y%m%d%H%M%S HEAD)
+echo "${commit_timestamp}-${commit}" > "$VERSION_FILE"
 echo "Saved version info to $VERSION_FILE"
