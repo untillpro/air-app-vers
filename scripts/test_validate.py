@@ -10,6 +10,7 @@ import shutil
 from datetime import datetime
 from io import StringIO
 from unittest.mock import patch
+from pathlib import Path
 
 from scripts.validate import main, get_versions_from_manifests
 from scripts.validate_config import (
@@ -800,7 +801,6 @@ class TestGetVersionsFromManifests(unittest.TestCase):
 
     def test_file_read_error_raises_exception(self):
         """Test that file read errors are not suppressed."""
-        from pathlib import Path
         # Create a manifest file that will cause a read error
         manifest_path = os.path.join(self.manifests_dir, 'pos--live.yml')
         os.makedirs(manifest_path)  # Create directory instead of file to cause error
