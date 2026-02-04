@@ -1,13 +1,11 @@
 versions:
   "1.0.0":
     released_at: 2026-01-10T09:00:00Z
-    notes: Mandatory update due to critical issues.
     matchers:
       - matcher_type: default
         severity: red
   "1.1.0":
     released_at: 2026-01-15T14:20:00Z
-    notes: Recommended update with important fixes.
     matchers:
       - matcher_type: country
         matcher_value: GB
@@ -25,4 +23,3 @@ versions:
         severity: yellow
       - matcher_type: default
         severity: green
-

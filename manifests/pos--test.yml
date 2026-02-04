@@ -1,34 +1,6 @@
 versions:
   "2.0.0":
     released_at: 2026-01-22T10:30:00Z
-    notes:
-      en: |
-        ## Major update with new features
-
-        This version includes:
-        - New dashboard interface
-        - Enhanced reporting capabilities
-        - Improved performance
-
-        **Optional update - users can update at their convenience.**
-      nl: |
-        ## Grote update met nieuwe functies
-
-        Deze versie bevat:
-        - Nieuwe dashboard-interface
-        - Verbeterde rapportagemogelijkheden
-        - Verbeterde prestaties
-
-        **Optionele update - gebruikers kunnen updaten wanneer het hen uitkomt.**
-      de: |
-        ## Großes Update mit neuen Funktionen
-
-        Diese Version enthält:
-        - Neue Dashboard-Oberfläche
-        - Verbesserte Berichtsfunktionen
-        - Verbesserte Leistung
-
-        **Optionales Update - Benutzer können nach Belieben aktualisieren.**
     matchers:
       - matcher_type: default
         severity: green
@@ -40,10 +12,6 @@ versions:
         severity: red
   "1.1.0":
     released_at: 2026-01-15T14:20:00Z
-    notes:
-      en: Recommended update with important fixes.
-      nl: Aanbevolen update met belangrijke fixes.
-      de: Empfohlenes Update mit wichtigen Korrekturen.
     matchers:
       - matcher_type: default
         severity: green
@@ -55,10 +23,6 @@ versions:
         severity: red
   "1.0.0":
     released_at: 2026-01-10T09:00:00Z
-    notes:
-      en: Mandatory update due to critical issues.
-      nl: Verplichte update vanwege kritieke problemen.
-      de: Pflichtupdate aufgrund kritischer Probleme.
     matchers:
       - matcher_type: default
         severity: red

@@ -1,0 +1,28 @@
+locales:
+  en-en: |
+    ## Major update with new features
+
+    This version includes:
+    - New dashboard interface
+    - Enhanced reporting capabilities
+    - Improved performance
+
+    **Optional update - users can update at their convenience.**
+  nl-nl: |
+    ## Grote update met nieuwe functies
+
+    Deze versie bevat:
+    - Nieuwe dashboard-interface
+    - Verbeterde rapportagemogelijkheden
+    - Verbeterde prestaties
+
+    **Optionele update - gebruikers kunnen updaten wanneer het hen uitkomt.**
+  de-de: |
+    ## Großes Update mit neuen Funktionen
+
+    Diese Version enthält:
+    - Neue Dashboard-Oberfläche
+    - Verbesserte Berichtsfunktionen
+    - Verbesserte Leistung
+
+    **Optionales Update - Benutzer können nach Belieben aktualisieren.**
