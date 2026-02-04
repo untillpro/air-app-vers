@@ -68,6 +68,7 @@ class TestValidateName(unittest.TestCase):
         self.assertFalse(validate_name("pos.live"))  # contains dot
         self.assertFalse(validate_name(None))  # None
         self.assertFalse(validate_name(123))  # not a string
+        self.assertFalse(validate_name(-1234))  # negative number, not a string
 
 
 class TestLoadConfig(unittest.TestCase):
