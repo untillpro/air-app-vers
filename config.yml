@@ -3,3 +3,10 @@ apps:
     environments:
       - live
       - test
+
+locales:
+  - en-en
+  - nl-NL
+  - de-DE
+  - fr-FR
+  - es-ES
