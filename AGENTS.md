@@ -4,13 +4,13 @@
 
 ## Execution instructions
 
-When request mentions:
+When a request mentions one of the words below, you must read the corresponding file and follow the rules described there:
 
-- uchange: Use rules from `uspecs/u/actn-changes.md`
-- uarchive: Use rules from `uspecs/u/actn-changes.md`
-- uimpl: Use rules from `uspecs/u/actn-impl.md`
-- usync: Use rules from `uspecs/u/actn-sync.md`
-- uhow: Use rules from `uspecs/u/actn-how.md`
+- uchange, uarchive: `uspecs/u/actn-uchange.md`
+- uimpl: `uspecs/u/actn-uimpl.md`
+- usync: `uspecs/u/actn-usync.md`
+- udecs: `uspecs/u/actn-udecs.md`
+- uhow: `uspecs/u/actn-uhow.md`
 
 Use files from `./uspecs/u` as an initial reference when user mentions uspecs
 
