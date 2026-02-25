@@ -23,3 +23,8 @@ versions:
         severity: yellow
       - matcher_type: default
         severity: green
+  "1.9.0":
+    released_at: 2026-02-25T15:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
