@@ -22,7 +22,11 @@ set -Eeuo pipefail
 #       Fetch pr_remote and create a local branch from its default branch.
 #
 #   pr.sh mergedef
-#       Fetch pr_remote and merge pr_remote/default_branch into the current branch.
+#       Validate preconditions, fetch pr_remote/default_branch, and merge it into the current branch.
+#       On success outputs:
+#           change_branch=<name>
+#           default_branch=<name>
+#           change_branch_head=<sha>  (HEAD before the merge)
 #
 #   pr.sh diff specs
 #       Output git diff of the specs folder between HEAD and pr_remote/default_branch.
@@ -44,16 +48,20 @@ set -Eeuo pipefail
 #       If no changes exist, switch to --next-branch and exit cleanly.
 #
 #   pr.sh ffdefault
-#       Fetch pr_remote/default and fast-forward current branch to it
+#       Fetch pr_remote/default_branch and fast-forward the local default branch to it.
+#       Switches to the default branch if not already on it, and leaves there after completion.
 #       Fail fast if any of the following conditions are true:
-#           current branch is not default
-#           current branch is not clean
+#           working directory is not clean
+#           branches have diverged (fast-forward not possible)
 
 
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+# shellcheck source=utils.sh
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/utils.sh"
 
 get_project_dir() {
     local script_dir
@@ -72,7 +80,7 @@ read_conf_param() {
     fi
 
     local line raw
-    line=$(grep -E "^- ${param_name}:" "$conf_file" | head -1 || true)
+    line=$(_grep -E "^- ${param_name}:" "$conf_file" | head -1 || true)
     raw="${line#*: }"
 
     if [ -z "$raw" ]; then
@@ -90,7 +98,7 @@ error() {
 }
 
 determine_pr_remote() {
-    if git remote | grep -q '^upstream$'; then
+    if git remote | _grep -q '^upstream$'; then
         echo "upstream"
     else
         echo "origin"
@@ -98,13 +106,13 @@ determine_pr_remote() {
 }
 
 gh_create_pr() {
-    # Usage: gh_create_pr <pr_remote> <default_branch> <head_branch> <title> <body>
-    # Creates a PR via GitHub CLI and outputs the PR URL.
-    local pr_remote="$1" default_branch="$2" head_branch="$3" title="$4" body="$5"
+    # Usage: printf '%s' "$body" | gh_create_pr <pr_remote> <default_branch> <head_branch> <title>
+    # Creates a PR via GitHub CLI and outputs the PR URL. Reads body from stdin.
+    local pr_remote="$1" default_branch="$2" head_branch="$3" title="$4"
 
     local pr_repo
     pr_repo="$(git remote get-url "$pr_remote" | sed -E 's#.*github.com[:/]##; s#\.git$##')"
-    local pr_args=('--repo' "$pr_repo" '--base' "$default_branch" '--title' "$title" '--body' "$body")
+    local pr_args=('--repo' "$pr_repo" '--base' "$default_branch" '--title' "$title" '--body-file' '-')
 
     if [[ "$pr_remote" == "upstream" ]]; then
         local origin_owner
@@ -117,17 +125,8 @@ gh_create_pr() {
 
 check_prerequisites() {
     # Check if git repository exists
-    local dir="$PWD"
-    local found_git=false
-    while [[ "$dir" != "/" ]]; do
-        if [[ -d "$dir/.git" ]]; then
-            found_git=true
-            break
-        fi
-        dir=$(dirname "$dir")
-    done
-    if [[ "$found_git" == "false" ]]; then
-        error "No git repository found"
+    if ! is_git_repo "$PWD"; then
+        error "No git repository found at $PWD"
     fi
 
     # Check if GitHub CLI is installed
@@ -136,7 +135,7 @@ check_prerequisites() {
     fi
 
     # Check if origin remote exists
-    if ! git remote | grep -q '^origin$'; then
+    if ! git remote | _grep -q '^origin$'; then
         error "'origin' remote does not exist"
     fi
 
@@ -178,7 +177,7 @@ cmd_prbranch() {
     default_branch=$(default_branch_name)
 
     echo "Fetching $pr_remote/$default_branch..."
-    git fetch "$pr_remote" "$default_branch"
+    git fetch "$pr_remote" "$default_branch" 2>&1
 
     echo "Creating branch: $name"
     git checkout -b "$name" "$pr_remote/$default_branch"
@@ -195,15 +194,16 @@ cmd_ffdefault() {
     current_branch=$(git symbolic-ref --short HEAD)
 
     if [[ "$current_branch" != "$default_branch" ]]; then
-        error "Current branch '$current_branch' is not the default branch '$default_branch'"
+        echo "Switching to '$default_branch'..."
+        git checkout "$default_branch"
     fi
 
     echo "Fetching $pr_remote/$default_branch..."
-    git fetch "$pr_remote" "$default_branch"
+    git fetch "$pr_remote" "$default_branch" 2>&1
 
-    echo "Fast-forwarding $current_branch..."
-    if ! git merge --ff-only "$pr_remote/$default_branch"; then
-        error "Cannot fast-forward '$current_branch' to '$pr_remote/$default_branch'. The branches have diverged."
+    echo "Fast-forwarding $default_branch..."
+    if ! git merge --ff-only "$pr_remote/$default_branch" 2>&1; then
+        error "Cannot fast-forward '$default_branch' to '$pr_remote/$default_branch'. The branches have diverged."
     fi
 }
 
@@ -253,7 +253,7 @@ cmd_pr() {
 
     echo "Creating pull request to $pr_remote..."
     local pr_url
-    pr_url=$(gh_create_pr "$pr_remote" "$default_branch" "$branch_name" "$title" "$body")
+    pr_url=$(printf '%s' "$body" | gh_create_pr "$pr_remote" "$default_branch" "$branch_name" "$title")
     echo "Pull request created successfully!"
 
     echo "Switching to $next_branch..."
@@ -272,14 +272,6 @@ cmd_pr() {
 }
 
 cmd_mergedef() {
-    local validate_only=false
-    while [[ $# -gt 0 ]]; do
-        case "$1" in
-            --validate) validate_only=true; shift ;;
-            *) error "Unknown flag: $1" ;;
-        esac
-    done
-
     check_prerequisites
 
     local pr_remote default_branch current_branch
@@ -295,17 +287,18 @@ cmd_mergedef() {
         error "Current branch '$current_branch' ends with '--pr'; cannot create PR from a PR branch"
     fi
 
-    if [[ "$validate_only" == "true" ]]; then
-        echo "change_branch=$current_branch"
-        echo "default_branch=$default_branch"
-        return 0
-    fi
+    local change_branch_head
+    change_branch_head=$(git rev-parse HEAD)
 
     echo "Fetching $pr_remote/$default_branch..."
-    git fetch "$pr_remote" "$default_branch"
+    git fetch "$pr_remote" "$default_branch" 2>&1
 
     echo "Merging $pr_remote/$default_branch into $current_branch..."
-    git merge "$pr_remote/$default_branch"
+    git merge "$pr_remote/$default_branch" 2>&1
+
+    echo "change_branch=$current_branch"
+    echo "default_branch=$default_branch"
+    echo "change_branch_head=$change_branch_head"
 }
 
 cmd_diff() {
@@ -343,7 +336,13 @@ cmd_changepr() {
         esac
     done
     [[ -z "$title" ]] && error "--title is required"
-    [[ -z "$body" ]]  && error "--body is required"
+    if [[ -z "$body" ]]; then
+        if is_tty; then
+            error "--body is required (or pipe body via stdin)"
+        fi
+        body=$(cat)
+    fi
+    [[ -z "$body" ]] && error "--body is required (or pipe body via stdin)"
 
     local pr_remote default_branch change_branch pr_branch
     pr_remote=$(determine_pr_remote)
@@ -384,7 +383,7 @@ cmd_changepr() {
     # Create PR via GitHub CLI
     echo "Creating pull request..."
     local pr_url
-    pr_url=$(gh_create_pr "$pr_remote" "$default_branch" "$pr_branch" "$title" "$body")
+    pr_url=$(printf '%s' "$body" | gh_create_pr "$pr_remote" "$default_branch" "$pr_branch" "$title")
 
     success=true
     trap - ERR
