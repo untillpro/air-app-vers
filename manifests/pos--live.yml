@@ -28,3 +28,8 @@ versions:
     matchers:
       - matcher_type: default
         severity: green
+  "23.59.59":
+    released_at: 2026-03-03T14:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
