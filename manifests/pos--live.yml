@@ -28,8 +28,3 @@ versions:
     matchers:
       - matcher_type: default
         severity: green
-  "100.100.100":
-    released_at: 2026-03-03T14:00:00Z
-    matchers:
-      - matcher_type: default
-        severity: green
