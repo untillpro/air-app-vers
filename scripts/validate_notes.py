@@ -13,6 +13,7 @@ Validation checks for notes:
 - en-en locale is present (required for fallback)
 - Each locale has non-empty notes field
 - Notes text length is within limits (min 1, max 500 characters)
+- Notes do not contain Cyrillic characters (U+0400–U+04FF) that may appear as AI translation artifacts
 """
 
 import re
@@ -22,6 +23,22 @@ import yaml
 NOTES_MIN_LENGTH = 1
 NOTES_MAX_LENGTH = 500
 REQUIRED_LOCALE = 'en-en'
+
+# Cyrillic Unicode range (U+0400–U+04FF)
+_CYRILLIC_RE = re.compile(r'[\u0400-\u04FF]')
+
+
+def detect_cyrillic_text(text):
+    """Check if text contains Cyrillic characters.
+
+    Scans the text for any character in the Cyrillic Unicode block
+    (U+0400–U+04FF).  Returns the first line containing Cyrillic
+    characters, or None if no Cyrillic text is found.
+    """
+    for line in text.splitlines():
+        if _CYRILLIC_RE.search(line):
+            return line.strip()
+    return None
 
 
 def validate_notes_filename(filename):
@@ -112,6 +129,12 @@ def validate_notes_file(filepath, valid_locales):
             errors.append(f"Locale '{locale_name}': notes cannot be empty")
         elif notes_length > NOTES_MAX_LENGTH:
             errors.append(f"Locale '{locale_name}': notes exceeds {NOTES_MAX_LENGTH} characters ({notes_length})")
+
+        # Check for Cyrillic characters (likely translation artifacts)
+        cyrillic_line = detect_cyrillic_text(notes)
+        if cyrillic_line:
+            short = cyrillic_line[:80] + '...' if len(cyrillic_line) > 80 else cyrillic_line
+            errors.append(f"Locale '{locale_name}': notes contain Cyrillic characters: \"{short}\"")
 
     if not has_required_locale:
         errors.append(f"Missing required locale '{REQUIRED_LOCALE}' (needed for fallback)")

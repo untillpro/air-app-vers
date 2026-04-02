@@ -6,13 +6,14 @@
 
 ```bash
 # Install dependencies
-pip install coverage pyyaml
+pip install coverage pyyaml lingua-language-detector
 
 # Run tests
-python -m unittest discover scripts -v
+python scripts/validate.py
 
 # Or, run tests with coverage and generate a report
-coverage run -m unittest discover scripts
+coverage run --source=scripts -m unittest discover scripts -v
+coverage run --source=scripts -a scripts/validate.py
 coverage html
 ```
 
