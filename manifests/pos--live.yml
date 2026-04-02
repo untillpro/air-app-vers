@@ -1,9 +1,4 @@
 versions:
-  "1.0.0":
-    released_at: 2026-01-10T09:00:00Z
-    matchers:
-      - matcher_type: default
-        severity: red
   "1.1.0":
     released_at: 2026-01-15T14:20:00Z
     matchers:
@@ -21,5 +16,15 @@ versions:
       - matcher_type: country
         matcher_value: US
         severity: yellow
+      - matcher_type: default
+        severity: green
+  "1.9.0":
+    released_at: 2026-02-25T15:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
+  "1.12.11":
+    released_at: 2026-04-01T08:00:00Z
+    matchers:
       - matcher_type: default
         severity: green

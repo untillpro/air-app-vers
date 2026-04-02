@@ -1,45 +1,12 @@
-# Templates
+# Templates: Functional Design
 
----
-
-## Change File Template 1
-
-Format:
-
-```markdown
-# Change request: {Change request title}
-
-## Why
-
-{1-3 sentences describing the reason, cause, purpose, or belief behind the change request}
-
-## What
-
-{What is being delivered} 
-```
-
-In What section organize content with introductory sentences followed by bullet points:
-
-```markdown
-Introductory sentence1:
-
-- Item 1
-- Item 2
-
-Introductory sentence2:
-
-- Item 1
-- Item 2
-```
-
----
-
-## Functional Design Specifications
-
-### Scenarios File (.feature) template
+## Scenarios File (.feature) template
 
 Rules:
 
+- Create very concise scenarios
+- Focus on user-facing behavior (what the user observes), not internal implementation steps
+- Place validation errors, failures, and error recovery under `Rule: Edge cases`
 - Prefer Scenario Outlines with Examples tables over multiple similar Scenarios
 - Use data tables in steps for inline structured data
 
@@ -65,9 +32,17 @@ Feature: Payment processing
       | Cash        | true         | 50.00      | 49.00  | succeed                                  |
       | Cash        | true         | 50.00      | 75.00  | be rejected with "Exceeds maximum limit" |
       | Credit Card | false        | 100.00     | 50.00  | be rejected with "Method not available"  |
+
+  Rule: Edge cases
+
+    Scenario: Waiter processes payment with no payment methods configured
+      Given no payment methods are configured for the location
+      When Waiter attempts to process a payment
+      Then error "No payment methods available" is displayed
+      And payment is not created
 ```
 
-### Requirements File (*reqs.md) template
+## Requirements File (*reqs.md) template
 
 Contain requirements that do not fit into Gherkin scenarios.
 

@@ -1,0 +1,51 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Improved user notifications during Payment Recovery
+      - Added optional EFT receipt printing
+      - Improved Cash Drawer logic in Digital Bill and No QR Code modes
+      - Added update notification system
+      - Added support for NYC1 card reader
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+        - Notificaciones mejoradas para el usuario durante la Recuperación de Pagos
+        - Impresión opcional de recibos EFT añadida
+        - Lógica del cajón de efectivo mejorada en los modos Factura Digital y Sin Código QR
+        - Sistema de notificación de actualizaciones añadido
+        - Soporte añadido para el lector de tarjetas NYC1
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+        - Verbeterde meldingen tijdens Payment Recovery
+        - Optionele EFT-bonafdruk toegevoegd
+        - Verbeterde Cash Drawer-logica in Digital Bill en No QR Code modi
+        - Meldingssysteem voor nieuwe versies toegevoegd
+        - Ondersteuning voor NYC1 kaartlezer
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+        - Notifications utilisateur améliorées pendant la récupération des paiements
+        - Ajout de l'impression optionnelle des reçus EFT
+        - Logique du tiroir-caisse améliorée dans les modes Facture numérique et Sans code QR
+        - Ajout d'un système de notification des mises à jour
+        - Ajout de la prise en charge du lecteur de cartes NYC1
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+        - Verbesserte Benachrichtigungen bei Payment Recovery
+        - Optionale EFT-Belegdruckfunktion hinzugefügt
+        - Verbesserte Cash-Drawer-Logik in Digital Bill und No QR Code Modi
+        - Benachrichtigungssystem für neue Versionen
+        - Unterstützung für NYC1 Kartenleser

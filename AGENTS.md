@@ -1,17 +1,16 @@
 # Agents instructions
 
-<!-- uspecs:triggering_instructions:begin -->
+<!-- uspecs:begin -->
 
 ## Execution instructions
 
-When request mentions:
+When a request starts with one of the following keywords, you must execute `bash uspecs/u/scripts/softeng.sh action {keyword}` and follow the instructions provided in the output: upr, umergepr.
 
-- uchange: Use rules from `uspecs/u/actn-changes.md`
-- uarchive: Use rules from `uspecs/u/actn-changes.md`
-- uimpl: Use rules from `uspecs/u/actn-impl.md`
-- usync: Use rules from `uspecs/u/actn-sync.md`
-- uhow: Use rules from `uspecs/u/actn-how.md`
+When a request starts with one of the keywords below, you must read the corresponding file and follow the rules described there:
 
-Use files from `./uspecs/u` as an initial reference when user mentions uspecs
+- uchange: create a change request following rules from `uspecs/u/actn-uchange.md`
+- uarchive, uimpl, usync, udecs, uhow: perform action described in `uspecs/u/actn-{keyword}.md`
 
-<!-- uspecs:triggering_instructions:end -->
+Use files from `./uspecs/u` as an initial reference when user mentions uspecs.
+
+<!-- uspecs:end -->

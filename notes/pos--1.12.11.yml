@@ -1,0 +1,46 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Switch between Table Plan and Direct Sales directly in the PoS
+      - Notification when device mode changes from Back Office
+      - Quick payment buttons (Cash & Card) in Direct Sales
+      - Other improvements and fixes
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Cambio entre Table Plan y Direct Sales directamente en la app
+      - Notificación al cambiar el modo desde Back Office
+      - Botones de pago rápido (efectivo y tarjeta) en Direct Sales
+      - Otras mejoras y correcciones
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+        - Wisselen tussen Table Plan en Direct Sales direct in de app
+        - Melding bij wijziging van apparaatmodus vanuit Back Office
+        - Snelle betaalknoppen (contant en kaart) in Direct Sales
+        - Overige verbeteringen en fixes
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+        - Basculement entre Table Plan et Direct Sales directement dans l’app
+        - Notification lors d’un changement de mode depuis le Back Office
+        - Boutons de paiement rapide (espèces et carte) en Direct Sales
+        - Autres améliorations et corrections
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+        - Wechsel zwischen Table Plan und Direct Sales direkt in der App
+        - Benachrichtigung bei Änderung des Gerätemodus im Back Office
+        - Schnelle Zahlungsbuttons (Bar & Karte) im Direct Sales Modus
+        - Weitere Verbesserungen und Fehlerbehebungen
