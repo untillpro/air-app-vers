@@ -72,7 +72,7 @@ class TestValidateNotesFile(unittest.TestCase):
   - name: en-en
     notes: Test release notes
   - name: nl-NL
-    notes: Test release notes in Dutch
+    notes: Nieuwe functies en verbeterde prestaties
 """
         filepath = self.write_notes(content)
         errors = validate_notes_file(filepath, {'en-en', 'nl-NL', 'de-DE'})
@@ -219,6 +219,62 @@ class TestValidateNotesFile(unittest.TestCase):
         content = """locales:
   - name: en-en
     notes: "Release notes with special characters: äöü ñ 日本語 émojis 🎉"
+"""
+        filepath = self.write_notes(content)
+        errors = validate_notes_file(filepath, {'en-en'})
+        self.assertEqual(errors, [])
+
+    def test_notes_with_cyrillic_text_detected(self):
+        """Test that notes containing Cyrillic text are flagged."""
+        content = """locales:
+  - name: en-en
+    notes: "Улучшенные уведомления пользователей во время восстановления платежей"
+"""
+        filepath = self.write_notes(content)
+        errors = validate_notes_file(filepath, {'en-en'})
+        self.assertTrue(any("Cyrillic" in e for e in errors))
+
+    def test_notes_with_single_cyrillic_word_detected(self):
+        """Test that even a single Cyrillic word in notes is flagged."""
+        content = """locales:
+  - name: en-en
+    notes: "Improved привет notifications"
+"""
+        filepath = self.write_notes(content)
+        errors = validate_notes_file(filepath, {'en-en'})
+        self.assertTrue(any("Cyrillic" in e for e in errors))
+
+    def test_notes_with_mixed_latin_and_cyrillic_detected(self):
+        """Test that notes with mixed Latin and Cyrillic words are flagged."""
+        content = """locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+      - Improved user notifications
+      - Добавлена поддержка нового формата
+"""
+        filepath = self.write_notes(content)
+        errors = validate_notes_file(filepath, {'en-en'})
+        self.assertTrue(any("Cyrillic" in e for e in errors))
+
+    def test_notes_with_latin_only_pass(self):
+        """Test that notes with only Latin/non-Cyrillic Unicode characters pass."""
+        content = """locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+      - Improved user notifications during Payment Recovery
+      - Added optional EFT receipt printing
+"""
+        filepath = self.write_notes(content)
+        errors = validate_notes_file(filepath, {'en-en'})
+        self.assertEqual(errors, [])
+
+    def test_notes_with_non_cyrillic_unicode_pass(self):
+        """Test that notes with non-Cyrillic Unicode characters pass."""
+        content = """locales:
+  - name: en-en
+    notes: "Release notes with special characters: äöü ñ émojis"
 """
         filepath = self.write_notes(content)
         errors = validate_notes_file(filepath, {'en-en'})
