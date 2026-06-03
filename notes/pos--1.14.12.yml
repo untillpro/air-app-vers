@@ -1,0 +1,46 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Added terminal selection during the first card payment, giving you more control over which device is used
+      - Introduced a “Go to Backoffice” button for easier navigation on mobile devices
+      - Implemented IP printer status checks before printing to prevent errors and failed receipts
+      - Other improvements and fixes
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Se añadió la selección de terminal durante el primer pago con tarjeta, brindando más control sobre qué dispositivo utilizar
+      - Se introdujo el botón “Ir al Backoffice” para una navegación más sencilla en dispositivos móviles
+      - Se implementó la verificación del estado de la impresora IP antes de imprimir para evitar errores y tickets fallidos
+      - Otras mejoras y correcciones
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+        - Selectie van terminal toegevoegd bij de eerste kaartbetaling, zodat je meer controle hebt over welk apparaat wordt gebruikt
+        - Een knop “Ga naar Backoffice” toegevoegd voor eenvoudigere navigatie op mobiele apparaten
+        - Controle van de status van de IP-printer vóór het afdrukken om fouten en mislukte bonnen te voorkomen
+        - Overige verbeteringen en fixes
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+        - Ajout de la sélection du terminal lors du premier paiement par carte, offrant plus de contrôle sur l’appareil utilisé
+        - Ajout d’un bouton « Aller au Backoffice » pour une navigation plus facile sur les appareils mobiles
+        - Vérification de l’état de l’imprimante IP avant impression afin d’éviter les erreurs et tickets échoués
+        - Autres améliorations et corrections
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+        - Auswahl des Terminals bei der ersten Kartenzahlung hinzugefügt, für mehr Kontrolle über das verwendete Gerät
+        - Schaltfläche „Zum Backoffice gehen“ für eine einfachere Navigation auf mobilen Geräten hinzugefügt
+        - Überprüfung des Status des IP-Druckers vor dem Drucken, um Fehler und fehlgeschlagene Belege zu vermeiden
+        - Weitere Verbesserungen und Fehlerbehebungen
