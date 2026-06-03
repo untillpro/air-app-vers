@@ -28,6 +28,11 @@ versions:
     matchers:
       - matcher_type: default
         severity: green
+  "1.13.4":
+    released_at: 2026-04-14T12:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
   "1.14.12":
     released_at: 2026-04-30T08:00:00Z
     matchers:

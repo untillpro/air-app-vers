@@ -1,0 +1,36 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Added the ability to add printers directly from PoS using a new local network scanning mechanism
+      - Other improvements and fixes
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Se ha añadido la posibilidad de agregar impresoras directamente desde el PoS mediante un nuevo mecanismo de escaneo de red local
+      - Otras mejoras y correcciones
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+        - Mogelijkheid toegevoegd om printers direct vanuit de PoS toe te voegen met een nieuw mechanisme voor het scannen van het lokale netwerk
+        - Overige verbeteringen en fixes
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+        - Ajout de la possibilité d’ajouter des imprimantes directement depuis le PoS grâce à un nouveau mécanisme de scan du réseau local
+        - Autres améliorations et corrections
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+        - Möglichkeit hinzugefügt, Drucker direkt aus dem PoS über einen neuen Mechanismus zur lokalen Netzwerksuche hinzuzufügen
+        - Weitere Verbesserungen und Fehlerbehebungen
