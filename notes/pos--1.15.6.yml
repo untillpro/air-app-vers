@@ -1,0 +1,41 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - UK locations can now configure a separate Service Charge percentage for each Space.
+      - Added the ability to print the Order Number on Bills and Order Tickets for devices operating in Direct Sales mode.
+      - Other improvements and fixes
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Las ubicaciones del Reino Unido ahora pueden configurar un porcentaje de cargo por servicio independiente para cada Space.
+      - Se agregó la posibilidad de imprimir el número de pedido en las facturas y tickets de pedido para dispositivos que operan en modo Direct Sales.
+      - Otras mejoras y correcciones
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+      - Locaties in het VK kunnen nu een apart Service Charge-percentage instellen voor elke Space.
+      - Het is nu mogelijk om het ordernummer af te drukken op rekeningen en ordertickets voor apparaten die in Direct Sales-modus werken.
+      - Overige verbeteringen en fixes
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+      - Les établissements au Royaume-Uni peuvent désormais configurer un pourcentage de frais de service distinct pour chaque Space.
+      - Il est désormais possible d’imprimer le numéro de commande sur les additions et tickets de commande pour les appareils fonctionnant en mode Direct Sales.
+      - Autres améliorations et corrections
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+      - Standorte im Vereinigten Königreich können jetzt einen separaten Service-Charge-Prozentsatz für jeden Space konfigurieren.
+      - Für Geräte im Direct Sales-Modus kann jetzt die Bestellnummer auf Rechnungen und Bestelltickets gedruckt werden.
+      - Weitere Verbesserungen und Fehlerbehebungen

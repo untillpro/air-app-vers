@@ -38,3 +38,8 @@ versions:
     matchers:
       - matcher_type: default
         severity: green
+  "1.15.16":
+    released_at: 2026-05-11T08:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
