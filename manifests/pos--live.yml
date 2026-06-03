@@ -43,3 +43,8 @@ versions:
     matchers:
       - matcher_type: default
         severity: green
+  "1.16.5":
+    released_at: 2026-05-25T08:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green

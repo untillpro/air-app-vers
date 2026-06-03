@@ -1,0 +1,41 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Added the ability to review and confirm Split by Article Part before proceeding to payment, giving more control and helping prevent mistakes during order splitting
+      - Improved overall stability and performance across the app
+      - Other improvements and fixes
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Se añadió la posibilidad de revisar y confirmar Split by Article Part antes de proceder al pago, ofreciendo mayor control y ayudando a evitar errores al dividir pedidos
+      - Se mejoró la estabilidad general y el rendimiento de la aplicación
+      - Otras mejoras y correcciones
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+      - De mogelijkheid toegevoegd om Split by Article Part te controleren en te bevestigen voordat de betaling wordt uitgevoerd, voor meer controle en minder fouten bij het splitsen van bestellingen
+      - De algemene stabiliteit en prestaties van de app verbeterd
+      - Overige verbeteringen en fixes
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+      - Ajout de la possibilité de vérifier et confirmer le Split by Article Part avant le paiement, offrant davantage de contrôle et aidant à éviter les erreurs lors du partage des commandes
+      - Amélioration de la stabilité générale et des performances de l’application
+      - Autres améliorations et corrections
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+      - Möglichkeit hinzugefügt, Split by Article Part vor dem Bezahlen zu überprüfen und zu bestätigen, um mehr Kontrolle zu bieten und Fehler beim Aufteilen von Bestellungen zu vermeiden
+      - Allgemeine Stabilität und Leistung der App verbessert
+      - Weitere Verbesserungen und Fehlerbehebungen
