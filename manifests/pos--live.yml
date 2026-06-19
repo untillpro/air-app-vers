@@ -48,3 +48,9 @@ versions:
     matchers:
       - matcher_type: default
         severity: green
+        severity: green
+  "1.17.9":
+    released_at: 2026-06-15T08:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green

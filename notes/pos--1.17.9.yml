@@ -1,0 +1,41 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Improved printer discovery and connection reliability in POS.
+      - Enhanced printing stability for Sunmi and Star printers.
+      - Improved cash drawer handling when connected through Star receipt printers.
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Se mejoró la detección de impresoras y la fiabilidad de la conexión en POS.
+      - Se mejoró la estabilidad de impresión para las impresoras Sunmi y Star.
+      - Se mejoró el funcionamiento del cajón portamonedas cuando está conectado a través de impresoras de recibos Star.
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+      - Printerdetectie en verbindingsbetrouwbaarheid in POS verbeterd.
+      - De afdrukstabiliteit voor Sunmi- en Star-printers verbeterd.
+      - De werking van de kassalade verbeterd wanneer deze via Star-bonprinters is aangesloten.
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+      - Amélioration de la détection des imprimantes et de la fiabilité des connexions dans le POS.
+      - Amélioration de la stabilité d’impression pour les imprimantes Sunmi et Star.
+      - Amélioration du fonctionnement du tiroir-caisse lorsqu’il est connecté via des imprimantes de reçus Star.
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+      - Druckererkennung und Verbindungszuverlässigkeit im POS verbessert.
+      - Die Druckstabilität für Sunmi- und Star-Drucker wurde verbessert.
+      - Das Verhalten der Kassenschublade bei Verbindung über Star-Bondrucker wurde verbessert.
