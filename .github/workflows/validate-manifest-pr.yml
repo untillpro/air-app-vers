@@ -8,6 +8,8 @@ on:
 jobs:
   check-author:
     runs-on: ubuntu-latest
+    # Author verification uses REPOREADING_TOKEN, so this job does not need the implicit GITHUB_TOKEN.
+    permissions: {}
     steps:
       - name: Check if PR author is in DevOps_releasep team
         uses: actions/github-script@v7
@@ -28,11 +30,19 @@ jobs:
   validate:
     needs: check-author
     runs-on: ubuntu-latest
+    # Restrict this job to the permissions listed below; all other GITHUB_TOKEN permissions are disabled.
+    permissions:
+      # Required by actions/checkout to read repository contents.
+      contents: read
+      # Required to post the validation result as a pull request comment.
+      issues: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          # PR creation is restricted to collaborators, and check-author gates this job to DevOps_releasep members.
+          allow-unsafe-pr-checkout: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -73,6 +83,10 @@ jobs:
   auto-merge:
     needs: validate
     runs-on: ubuntu-latest
+    # Restrict this job to the single write permission below; all other GITHUB_TOKEN permissions are disabled.
+    permissions:
+      # Required by GitHub's pull request merge endpoint.
+      contents: write
     if: success()
     steps:
       - name: Auto-merge PR
