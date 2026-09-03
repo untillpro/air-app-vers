@@ -1,0 +1,41 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Added FDM Belgium support.
+      - Improved Tap to Pay duplicate payment prevention.
+      - Fixed order creation and sending issues on some devices.
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Añadido soporte para FDM Bélgica.
+      - Mejorada la prevención de pagos duplicados con Tap to Pay.
+      - Corregidos problemas al crear y enviar pedidos en algunos dispositivos.
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+      - Ondersteuning voor FDM België toegevoegd.
+      - Verbeterde preventie van dubbele Tap to Pay-betalingen.
+      - Problemen met het aanmaken en verzenden van bestellingen op sommige apparaten opgelost.
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+      - Ajout de la prise en charge de FDM Belgique.
+      - Amélioration de la prévention des paiements Tap to Pay en double.
+      - Correction de problèmes empêchant la création et l’envoi de commandes sur certains appareils.
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+      - Unterstützung für FDM Belgien hinzugefügt.
+      - Vermeidung doppelter Tap to Pay-Zahlungen verbessert.
+      - Probleme beim Erstellen und Senden von Bestellungen auf einigen Geräten behoben.
