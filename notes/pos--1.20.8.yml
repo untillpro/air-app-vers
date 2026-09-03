@@ -1,0 +1,46 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Improved printer error messages.
+      - Fixed receipt and report printing.
+      - Improved contactless payment stability.
+      - Disabled courses no longer appear on preparation tickets.
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Se han mejorado los mensajes de error de la impresora.
+      - Se ha corregido la impresión de tickets e informes.
+      - Se ha mejorado la estabilidad de los pagos sin contacto.
+      - Los tiempos desactivados ya no aparecen en los tickets de preparación.
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+      - Verbeterde foutmeldingen voor printers.
+      - Problemen met het afdrukken van bonnen en rapporten zijn opgelost.
+      - De stabiliteit van contactloze betalingen is verbeterd.
+      - Uitgeschakelde gangen worden niet meer op bereidingsbonnen weergegeven.
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+      - Amélioration des messages d’erreur de l’imprimante.
+      - Correction de l’impression des tickets et des rapports.
+      - Amélioration de la stabilité des paiements sans contact.
+      - Les services désactivés n’apparaissent plus sur les bons de préparation.
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+      - Verbesserte Fehlermeldungen für Drucker.
+      - Fehler beim Drucken von Belegen und Berichten wurden behoben.
+      - Die Stabilität kontaktloser Zahlungen wurde verbessert.
+      - Deaktivierte Gänge erscheinen nicht mehr auf Produktionsbons.

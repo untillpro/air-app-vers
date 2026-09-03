@@ -65,3 +65,8 @@ versions:
       - matcher_type: location_hash
         matcher_value: 63c4594e0bf01796c4cc4db48e671316ca2804967e30fb190232ca0e2cc850d2
         severity: yellow
+  "1.20.8":
+    released_at: 2026-08-03T08:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green
