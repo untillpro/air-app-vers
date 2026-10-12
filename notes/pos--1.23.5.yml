@@ -1,0 +1,36 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - Belgian receipts now display all required information clearly and correctly in both regular and Simple Mode layouts.
+      - Improved payment and checkout stability, with more reliable Tap to Pay sessions, smoother recovery from cancellations or temporary errors, and fewer interruptions caused by unavailable printers.
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Los recibos belgas ahora muestran toda la información obligatoria de forma clara y correcta, tanto en el modo normal como en el modo sencillo.
+      - Mayor estabilidad en los pagos y el cobro, con sesiones de Tap to Pay más fiables, una recuperación más fluida tras cancelaciones o errores temporales y menos interrupciones por impresoras no disponibles.
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+      - Belgische kassabonnen tonen nu alle verplichte informatie duidelijk en correct, zowel in de normale modus als in de eenvoudige modus.
+      - Verbeterde stabiliteit van betalingen en afrekenen, met betrouwbaardere Tap to Pay-sessies, soepeler herstel na annuleringen of tijdelijke fouten en minder onderbrekingen door niet-beschikbare printers.
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+      - Les tickets belges affichent désormais toutes les informations obligatoires de manière claire et correcte, en mode normal comme en mode simplifié.
+      - Amélioration de la stabilité des paiements et du passage en caisse, avec des sessions Tap to Pay plus fiables, une reprise plus fluide après une annulation ou une erreur temporaire et moins d’interruptions dues à des imprimantes indisponibles.
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+      - Belgische Belege zeigen jetzt alle erforderlichen Informationen sowohl im normalen als auch im einfachen Modus klar und korrekt an.
+      - Verbesserte Stabilität bei Zahlungen und beim Bezahlvorgang, mit zuverlässigeren Tap to Pay-Sitzungen, reibungsloserer Wiederherstellung nach Abbrüchen oder vorübergehenden Fehlern und weniger Unterbrechungen durch nicht verfügbare Drucker.
