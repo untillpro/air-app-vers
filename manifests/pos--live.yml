@@ -80,3 +80,8 @@ versions:
     matchers:
       - matcher_type: default
         severity: green
+  "1.24.13":
+    released_at: 2026-10-26T08:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green

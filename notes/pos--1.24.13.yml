@@ -1,0 +1,51 @@
+locales:
+  - name: en-en
+    notes: |
+      ## Major update with new features
+
+      This version includes:
+      - More accurate VAT calculations for Combi Deals.
+      - More reliable printing with paper-out recovery, correct transparent images, improved alignment, and clearer status messages.
+      - Automatic selection when only one payment terminal is available.
+      - More reliable Tap to Pay with stronger duplicate-payment protection.
+      - Cash drawers now open before printing.
+  - name: es-ES
+    notes: |
+      ## Actualización importante con nuevas funciones
+
+      Esta versión incluye:
+      - Cálculos de IVA más precisos para los Combi Deals.
+      - Impresión más fiable con recuperación tras quedarse sin papel, imágenes transparentes correctas, mejor alineación y mensajes de estado más claros.
+      - Selección automática cuando solo hay un terminal de pago disponible.
+      - Tap to Pay más fiable con mayor protección frente a pagos duplicados.
+      - Los cajones de efectivo ahora se abren antes de imprimir.
+  - name: nl-NL
+    notes: |
+      ## Grote update met nieuwe functies
+
+      Deze versie bevat:
+      - Nauwkeurigere btw-berekeningen voor Combi Deals.
+      - Betrouwbaarder afdrukken met herstel na papierstoringen, correcte transparante afbeeldingen, betere uitlijning en duidelijkere statusmeldingen.
+      - Automatische selectie als er maar één betaalterminal beschikbaar is.
+      - Betrouwbaardere Tap to Pay met betere bescherming tegen dubbele betalingen.
+      - Kassalades gaan nu open vóór het afdrukken.
+  - name: fr-FR
+    notes: |
+      ## Mise à jour majeure avec de nouvelles fonctionnalités
+
+      Cette version comprend :
+      - Calcul plus précis de la TVA pour les Combi Deals.
+      - Impression plus fiable avec reprise après un manque de papier, images transparentes correctes, meilleur alignement et messages d'état plus clairs.
+      - Sélection automatique lorsqu'un seul terminal de paiement est disponible.
+      - Tap to Pay plus fiable avec une meilleure protection contre les doubles paiements.
+      - Les tiroirs-caisses s'ouvrent désormais avant l'impression.
+  - name: de-DE
+    notes: |
+      ## Großes Update mit neuen Funktionen
+
+      Diese Version enthält:
+      - Genauere Mehrwertsteuerberechnung für Combi Deals.
+      - Zuverlässigeres Drucken mit Fortsetzung nach Papiermangel, korrekten transparenten Bildern, besserer Ausrichtung und verständlicheren Statusmeldungen.
+      - Automatische Auswahl, wenn nur ein Zahlungsterminal verfügbar ist.
+      - Zuverlässigeres Tap to Pay mit verbessertem Schutz vor Doppelzahlungen.
+      - Kassenschubladen öffnen sich jetzt vor dem Drucken.
