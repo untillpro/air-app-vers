@@ -35,7 +35,7 @@ locales:
 
       Cette version comprend :
       - Calcul plus précis de la TVA pour les Combi Deals.
-      - Impression plus fiable avec reprise après un manque de papier, images transparentes correctes, meilleur alignement et messages d'état plus clairs.
+      - Impression plus fiable avec reprise après un manque de papier, meilleur alignement et messages d'état plus clairs.
       - Sélection automatique lorsqu'un seul terminal de paiement est disponible.
       - Tap to Pay plus fiable avec une meilleure protection contre les doubles paiements.
       - Les tiroirs-caisses s'ouvrent désormais avant l'impression.
