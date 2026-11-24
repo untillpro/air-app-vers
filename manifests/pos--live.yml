@@ -90,3 +90,8 @@ versions:
     matchers:
       - matcher_type: default
         severity: green
+  "1.26.2":
+    released_at: 2026-11-24T08:00:00Z
+    matchers:
+      - matcher_type: default
+        severity: green

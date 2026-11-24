@@ -1,0 +1,36 @@
+locales:
+  - name: en-en
+    notes: |
+      ## What's new
+
+      - Once an item is marked for return, its quantity, price and options can no longer be changed. Menu and Combi items must be complete before they can be returned.
+      - FDM footer text now supports special characters and emoji on receipts and reports.
+      - Confirmation messages now display line breaks correctly.
+  - name: es-ES
+    notes: |
+      ## Novedades
+
+      - Una vez marcado un artículo para devolución, no se pueden cambiar su cantidad, precio ni opciones. Los artículos Menu y Combi deben estar completos antes de devolverlos.
+      - El texto del pie de página FDM admite caracteres especiales y emojis en recibos e informes.
+      - Los mensajes de confirmación muestran correctamente los saltos de línea.
+  - name: nl-NL
+    notes: |
+      ## Wat is er nieuw
+
+      - Zodra een artikel voor retour is gemarkeerd, kunnen aantal, prijs en opties niet meer worden gewijzigd. Menu- en Combi-artikelen moeten compleet zijn voordat ze kunnen worden geretourneerd.
+      - FDM-voetteksten ondersteunen nu speciale tekens en emoji op bonnen en rapporten.
+      - Bevestigingsberichten tonen regeleinden nu correct.
+  - name: fr-FR
+    notes: |
+      ## Nouveautés
+
+      - Une fois un article marqué pour retour, sa quantité, son prix et ses options ne peuvent plus être modifiés. Les articles Menu et Combi doivent être complets avant leur retour.
+      - Le texte de pied de page FDM prend désormais en charge les caractères spéciaux et les émojis sur les reçus et les rapports.
+      - Les messages de confirmation affichent correctement les sauts de ligne.
+  - name: de-DE
+    notes: |
+      ## Neuigkeiten
+
+      - Sobald ein Artikel zur Rückgabe markiert ist, lassen sich Menge, Preis und Optionen nicht mehr ändern. Menu- und Combi-Artikel müssen vor der Rückgabe vollständig sein.
+      - FDM-Fußtexte unterstützen jetzt Sonderzeichen und Emojis auf Belegen und Berichten.
+      - Bestätigungsmeldungen zeigen Zeilenumbrüche jetzt korrekt an.
