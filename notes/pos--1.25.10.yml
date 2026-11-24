@@ -1,0 +1,46 @@
+locales:
+  - name: en-en
+    notes: |
+      ## What's new
+
+      - Process item returns and refund guests in cash or through supported card payments.
+      - Find and reopen eligible orders after midnight with the Control screen set to the active working day.
+      - Split payments with tips now complete correctly at German locations.
+      - Improved FDM connectivity and payment processing in Belgium.
+      - Improved Tap to Pay startup and payment recovery.
+  - name: es-ES
+    notes: |
+      ## Novedades
+
+      - Devuelva artículos y reembolse a los clientes en efectivo o mediante pagos con tarjeta compatibles.
+      - Busque y reabra pedidos aptos tras medianoche con el día de trabajo activo seleccionado en la pantalla Control.
+      - Los pagos divididos con propina ya se completan correctamente en Alemania.
+      - Mejoras en conexión FDM y procesamiento de pagos en Bélgica.
+      - Mejoras en el inicio de Tap to Pay y la recuperación de pagos.
+  - name: nl-NL
+    notes: |
+      ## Wat is er nieuw
+
+      - Retourneer artikelen en betaal gasten terug in contanten of via ondersteunde kaartbetalingen.
+      - Zoek en heropen geschikte bestellingen na middernacht met de actieve werkdag geselecteerd in het Control-scherm.
+      - Gesplitste betalingen met fooi worden nu correct afgerond op Duitse locaties.
+      - Verbeterde FDM-verbinding en betalingsverwerking in België.
+      - Verbeterde start van Tap to Pay en herstel van betalingen.
+  - name: fr-FR
+    notes: |
+      ## Nouveautés
+
+      - Retours d'articles et remboursements clients en espèces ou via les paiements par carte pris en charge.
+      - Trouvez et rouvrez les commandes éligibles après minuit avec le jour de travail actif sélectionné dans l'écran Control.
+      - Paiements fractionnés avec pourboire corrigés en Allemagne.
+      - Connexion FDM et traitement des paiements améliorés en Belgique.
+      - Démarrage de Tap to Pay et récupération des paiements améliorés.
+  - name: de-DE
+    notes: |
+      ## Neuigkeiten
+
+      - Artikel zurücknehmen und Gästen Geld bar oder über unterstützte Kartenzahlungen erstatten.
+      - Geeignete Bestellungen nach Mitternacht finden und wieder öffnen; im Control-Bildschirm den aktiven Arbeitstag wählen.
+      - Geteilte Zahlungen mit Trinkgeld werden in Deutschland nun korrekt abgeschlossen.
+      - FDM-Verbindung und Zahlungsabwicklung in Belgien verbessert.
+      - Tap to Pay: Start und Wiederaufnahme von Zahlungen verbessert.
